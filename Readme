@@ -7,15 +7,18 @@ Question-1) Given two string 's' and 'letters' and a integer 'k'. You need to de
             where 0th index represents 'a', 1st index corresponds to 'b' and so on (A binary string contains only '0' and '1'), letters[i]='0' refers to be bad and letters[i]='1' is good. A beutiful string
             is defined as the number of bad characters in the string should be less than or equal to k.
 
-            Sample Test Case: s='kirat', letters='01001001100000110000000111', k=2
+            Sample Test Case 1: s='kirat', letters='01001001100000110000000111', k=2
             Output: 11
             Explaination: Beutiful substrings are: ['k','i', 'r', 'a' 't', 'ki', 'kir', 'ir', 'ira', 'ra', 'at'] only 'i' is the letter which is good.
+
+            Sample Test Case 2: s='chaitanya' letters='01101010101010110011001010', k=3
+            Output: 36
+            Explaintation: beutiful substrings are: [c ch cha chai chait chaita h ha hai hait haita a ai ait aita aitan aitany i it ita itan itany itanya t ta tan tany tanya an any anya n ny nya y ya]
+
             Constraints: s.size()<2000
                          string 's' contains only lower case letters
                          k<s.size()
-            Sample Test Case: s='chaitanya' letters='01101010101010110011001010', k=3
-            Output: 36
-            Explaintation: beutiful substrings are: [c ch cha chai chait chaita h ha hai hait haita a ai ait aita aitan aitany i it ita itan itany itanya t ta tan tany tanya an any anya n ny nya y ya]
+            
 Solution: 
           Code: 
           #include <bits/stdc++.h>
@@ -55,3 +58,57 @@ Solution:
 
           Note: Here I have used two hash functions inorder to avoid Hash collision. In simple words there may be the case when s1!=s2 but hash(s1)==hash(s2) so i have used two hashes 
                 so that the probability of occurance of above condition would be 1e-8.
+
+Question-2) There is a Bucketland with infinte Buckets, each bucket have a unique number associated with it. Initially all the buckets are empty, but when a water poured in ith bucket it gets full. 
+            If the water again poured into the bucket it gets overflowed. Your goal is to avoid averflow. Given a integer array water where water[i]>0 means water poured to water[i] bucket 
+            and if water[i]=0 then we can empty the bucket.
+            Return a vector of integer ans of length water.size() where if water[i]>0 then ans[i]=-1 and if water[i]=0 then ans[i] is the number of lake which you choose to empty.
+            Note: If the water gets overflowed from the bucket in all possible ways return a empty vector.
+
+            Sample Test Case 1: water=[1,2,0,0,2,1]
+            Output: [-1,-1,2,1,-1,-1]
+            Explaination: We would empty that bucket first which will reoccur first in the array.
+
+            Sample Test Case 2: water= [1,2,0,1,2]
+            Output: []
+            Explaination: We need to dry 1 and 2 both but 0 occurs only at one index
+
+            Contraints: water.size()<1e5
+                        1<=water[i]<=1e9
+
+Solution: 
+          Code:
+          #include <bits/stdc++.h>
+          vector<int> solve(vector<int>& water) {
+              map<int,int> mp;
+              set<int> empty;
+              vector<int> ans(water.size(),-1);
+              for(int i=0;i<water.size();i++){
+                  if(water[i]==0) {empty.insert(i); ans[i]=1;}
+                  else{
+                      if(mp.find(water[i])!=mp.end()){
+                          auto it=empty.lower_bound(mp[water[i]]);
+                          if(it==empty.end()) return {};
+                          int p=*it;
+                          ans[p]=water[i];
+                          empty.erase(p);
+                      }
+                      mp[water[i]]=i;
+                  }
+              }
+              return ans;
+          }
+          int main(){
+              int n;
+              cin>>n;
+              vector<int> water(n,0);
+              for(int i=0;i<n;i++) cin>>water[i];
+              vector<int> ans=solve(water);
+              for(int i=0;i<ans.size();i++) cout<<ans[i]<<" ";
+      
+              return 0;
+          }
+
+          Time Complexity: O(n)
+          Space Complexity: O(n)
+
