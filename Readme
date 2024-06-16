@@ -1,0 +1,53 @@
+This Repositry based is based on the Assigment given by 100x.Dev:
+Problem Statement-  1. Compose two questions on "Hashing."
+                    2. Create solutions for these questions in C++ and Java.
+                    3. Develop test cases for either the C++ or Java code.
+
+Question-1) Given two string 's' and 'letters' and a integer 'k'. You need to determine the number of unique beutiful substrings present in string 's'. The string 'letters' is a binary string of length 26 
+            where 0th index represents 'a', 1st index corresponds to 'b' and so on (A binary string contains only '0' and '1'), letters[i]='0' refers to be bad and letters[i]='1' is good. A beutiful string
+            is defined as the number of bad characters in the string should be less than or equal to k.
+
+            Sample Test Case: s='kirat', letters='01001001100000110000000111', k=2
+            Output: 11
+            Explaination: Beutiful substrings are: ['k','i', 'r', 'a' 't', 'ki', 'kir', 'ir', 'ira', 'ra', 'at'] only 'i' is the letter which is good.
+            Constraints: s.size()<2000
+                         string 's' contains only lower case letters
+                         k<s.size()
+Solution: 
+          Code: 
+          #include <bits/stdc++.h>
+          using namespace std;
+          #define ll long long int
+          
+          int solve(string s,string good,int badAllowed){
+              set<pair<ll,ll>> st;
+              ll mod1=1e9+7,mod2=1e5+3;
+              for(int i=0;i<s.size();i++){
+                  int numOfBad=0;
+                  ll hash1=0,hash2=0;
+                  for(int j=i;j<s.size();j++){
+                      numOfBad+=good[s[j]-'a']=='0';
+                      if(numOfBad>badAllowed) break;
+                      hash1=(hash1*31+s[j]-'a'+1)%mod1;
+                      hash2=(hash2*31+s[j]-'a'+1)%mod2;
+                          st.insert({hash1,hash2});
+                  }
+              }
+              return st.size();
+          }
+          int main()
+          {
+              string s,good;
+              int badAllowed;
+              cin>>s>>good>>badAllowed;
+              cout<<solve(s,good,badAllowed);
+              return 0;
+          }
+
+          Time Complexity: O(n^2)
+          Space Complexity: O(n^2)
+
+          Note: This n^2 approach can further be optimised to O(n) with the help of Sliding Window Technique.
+                Inorder to keep the solution simple and more focused on Hashing i have written this approach.
+
+          Intution: 
