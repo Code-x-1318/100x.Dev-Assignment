@@ -14,9 +14,9 @@ Question-1) Given two string 's' and 'letters' and a integer 'k'. You need to de
 
             Sample Test Case 2: s='chaitanya' letters='01101010101010110011001010', k=3
             Output: 36
-            Explaintation: beutiful substrings are: ['c', 'ch', 'cha', 'chai', 'chait', 'chaita', 'h', 'ha', 'hai', 'hait', 'haita', 
-                           'a', 'ai', 'ait', 'aita', 'aitan', 'aitany', 'i', 'it', 'ita', 'itan', 'itany', 'itanya', 't', 'ta', 'tan',
-                           'tany', 'tanya', 'an', 'any', 'anya', 'n', 'ny', 'nya', 'y', 'ya']
+            Explaintation: beutiful substrings are: ['c', 'ch', 'cha', 'chai', 'chait', 'chaita', 'h', 'ha', 'hai', 'hait', 
+                           'haita', 'a', 'ai', 'ait', 'aita', 'aitan', 'aitany', 'i', 'it', 'ita', 'itan', 'itany', 'itanya',
+                           't', 'ta', 'tan','tany', 'tanya', 'an', 'any', 'anya', 'n', 'ny', 'nya', 'y', 'ya']
 
             Constraints: s.size()<2000
                          string 's' contains only lower case letters
