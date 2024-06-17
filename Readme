@@ -23,7 +23,8 @@ Question-1) Given two string 's' and 'letters' and a integer 'k'. You need to de
                          k<s.size()
             
 Solution: 
-          Code: 
+      Code: 
+       <u>C++</u>
           #include <bits/stdc++.h>
           using namespace std;
           #define ll long long int
@@ -53,6 +54,52 @@ Solution:
               return 0;
           }
 
+       <u>Java</u>
+          import java.util.*;
+          public class Main {
+              public static long solve(String s, String good, int badAllowed) {
+                  Set<Pair> st = new HashSet<>();
+                  long mod1 = 1000000007L, mod2 = 100003L;
+                  for (int i = 0; i < s.length(); i++) {
+                      int numOfBad = 0;
+                      long hash1 = 0, hash2 = 0;
+                      for (int j = i; j < s.length(); j++) {
+                          numOfBad += good.charAt(s.charAt(j) - 'a') == '0' ? 1 : 0;
+                          if (numOfBad > badAllowed) break;
+                          hash1 = (hash1 * 31 + s.charAt(j) - 'a' + 1) % mod1;
+                          hash2 = (hash2 * 31 + s.charAt(j) - 'a' + 1) % mod2;
+                          st.add(new Pair(hash1, hash2));
+                      }
+                  }
+                  return st.size();
+              }
+              public static void main(String[] args) {
+                  Scanner sc = new Scanner(System.in);
+                  String s = sc.next();
+                  String good = sc.next();
+                  int badAllowed = sc.nextInt();
+                  System.out.println(solve(s, good, badAllowed));
+              }
+          }
+          class Pair {
+              long first, second;  
+              Pair(long first, long second) {
+                  this.first = first;
+                  this.second = second;
+              }
+              @Override
+              public boolean equals(Object o) {
+                  if (this == o) return true;
+                  if (o == null || getClass() != o.getClass()) return false;
+                  Pair pair = (Pair) o;
+                  return first == pair.first && second == pair.second;
+              }
+              @Override
+              public int hashCode() {
+                  return Objects.hash(first, second);
+              }
+          }
+
           Time Complexity: O(n^2)
           Space Complexity: O(n^2)
 
@@ -80,7 +127,8 @@ Question-2) There is a Bucketland with infinte Buckets, each bucket have a uniqu
                         1<=water[i]<=1e9
 
 Solution: 
-          Code:
+      Code:
+       <u>C++</u>
           #include <bits/stdc++.h>
           vector<int> solve(vector<int>& water) {
               map<int,int> mp;
@@ -111,6 +159,44 @@ Solution:
       
               return 0;
           }
+
+       <u>Java</u>
+          import java.util.*;
+          public class Main {
+              public static List<Integer> solve(List<Integer> water) {
+                  Map<Integer, Integer> mp = new HashMap<>();
+                  TreeSet<Integer> empty = new TreeSet<>();
+                  List<Integer> ans = new ArrayList<>(Collections.nCopies(water.size(), -1));
+                  for (int i = 0; i < water.size(); i++) {
+                      if (water.get(i) == 0) {
+                          empty.add(i);
+                          ans.set(i, 1);
+                      } else {
+                          if (mp.containsKey(water.get(i))) {
+                              Integer p = empty.ceiling(mp.get(water.get(i)));
+                              if (p == null) return new ArrayList<>();
+                              ans.set(p, water.get(i));
+                              empty.remove(p);
+                          }
+                          mp.put(water.get(i), i);
+                      }
+                  }
+                  return ans;
+              }
+              public static void main(String[] args) {
+                  Scanner sc = new Scanner(System.in);
+                  int n = sc.nextInt();
+                  List<Integer> water = new ArrayList<>(n);
+                  for (int i = 0; i < n; i++) {
+                      water.add(sc.nextInt());
+                  }
+                  List<Integer> ans = solve(water);
+                  for (int x : ans) {
+                      System.out.print(x + " ");
+                  }
+              }
+          }
+
 
           Time Complexity: O(n)
           Space Complexity: O(n)
