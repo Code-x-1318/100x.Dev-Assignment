@@ -24,7 +24,7 @@ Question-1) Given two string 's' and 'letters' and a integer 'k'. You need to de
             
 Solution: 
       Code: 
-       <u>C++</u>
+          C++
           #include <bits/stdc++.h>
           using namespace std;
           #define ll long long int
@@ -54,7 +54,7 @@ Solution:
               return 0;
           }
 
-       <u>Java</u>
+          Java
           import java.util.*;
           public class Main {
               public static long solve(String s, String good, int badAllowed) {
@@ -128,7 +128,7 @@ Question-2) There is a Bucketland with infinte Buckets, each bucket have a uniqu
 
 Solution: 
       Code:
-       <u>C++</u>
+          C++
           #include <bits/stdc++.h>
           vector<int> solve(vector<int>& water) {
               map<int,int> mp;
@@ -160,7 +160,7 @@ Solution:
               return 0;
           }
 
-       <u>Java</u>
+          Java
           import java.util.*;
           public class Main {
               public static List<Integer> solve(List<Integer> water) {
